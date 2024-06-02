@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import React from 'react';
+import Collection from '@/components/shared/Collection';
+
 
 const HeroSection = () => {
   return (
@@ -27,6 +29,7 @@ const HeroSection = () => {
           className="max-h-[70vh] object-contain object-center 2xl:max-h-[50vh]"
         />
       </div>
+      <Collection/>
     </section>
   );
 };
