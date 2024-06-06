@@ -5,6 +5,7 @@ import React from 'react';
 const Card = () => {
   return (
     <>
+    <div className="mt-9 shadow-2xl p-10 rounded-2xl w-10/11 mb-20 items-center mx-auto">
       <div className="flex flex-wrap justify-center md:justify-between gap-4">
         <div className="group relative flex min-h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg md:min-h-[438px]">
           <Link
@@ -112,7 +113,7 @@ const Card = () => {
 
         
       </div>
-      
+    </div>
     </>
   );
 };

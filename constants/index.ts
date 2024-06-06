@@ -11,10 +11,6 @@ export const headerLinks = [
     label: 'About Us',
     route: '/About/AboutUs',
   },
-  {
-      label: 'Contact',
-      route: '/Contact/contact',
-  },
 ]
 
 export const eventDefaultValues = {
