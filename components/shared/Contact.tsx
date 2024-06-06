@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form"
 import { z } from "zod"
 import { Button } from '../ui/button'
 import { 
@@ -24,7 +24,7 @@ const formSchema = z.object({
   }),
 })
 
-const Contactus = () => {
+const Contactus: React.FC = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
   })
@@ -39,23 +39,29 @@ const Contactus = () => {
     }
   }, [showToast]);
 
-  const onSubmit = async (data, e) => {
-    e.preventDefault();
-    try {
-      const formElement = e.target;
-      const formData = new FormData(formElement);
-      const response = await fetch(scriptURL, {
-        method: 'POST',
-        body: formData,
-      });
-      if (response.ok) {
-        setShowToast(true);
-        form.reset();
-      } else {
-        console.error('Error!', response.statusText);
+  const onSubmit: SubmitHandler<FieldValues> = async (data, e) => {
+    if (e) {
+      e.preventDefault();
+      try {
+        const formElement = e.target as HTMLFormElement;
+        const formData = new FormData(formElement);
+        const response = await fetch(scriptURL, {
+          method: 'POST',
+          body: formData,
+        });
+        if (response.ok) {
+          setShowToast(true);
+          form.reset();
+        } else {
+          console.error('Error!', response.statusText);
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error('Error!', error.message);
+        } else {
+          console.error('Unexpected error', error);
+        }
       }
-    } catch (error) {
-      console.error('Error!', error.message);
     }
   }
 
@@ -63,11 +69,11 @@ const Contactus = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} name="submit-to-google-sheet">
         <FormField
-          name="name"
+          name="username"
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>name</FormLabel>
+              <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input placeholder="Enter your name" {...field} />
               </FormControl>
@@ -93,7 +99,7 @@ const Contactus = () => {
           control={form.control}
           render={({ field }) => (
             <FormItem>
-              <FormLabel>message</FormLabel>
+              <FormLabel>Message</FormLabel>
               <FormControl>
                 <Input placeholder="Your lovely msg" {...field} />
               </FormControl>
